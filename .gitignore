@@ -1,0 +1,53 @@
+# .gitignore
+
+# sbt
+target/
+.history
+
+# Java
+*.class
+
+# Logs
+*.log
+log/
+logs/
+
+# Temporary files
+*~
+*.bak
+*.old
+*.tmp
+nohup.out
+tmp/
+
+# vim
+.*.sw[a-z]
+
+# IntelliJ
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.cache
+.classpath
+.project
+.scala_dependencies
+.settings/
+*.sc
+
+# Mac OS X
+._*
+.DS_Store
+
+# Windows
+Desktop.ini
+Thumbs.db
+
+# Local overrides and secrets
+*.local.conf
+
+# Swagger Docs
+api-docs/
