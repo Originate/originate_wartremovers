@@ -5,11 +5,11 @@ import org.scalatest.FreeSpec
 
 import java.nio.charset.StandardCharsets.UTF_8
 
-class Utf8StringSpec extends FreeSpec {
+class ExplicitStringEncodingSpec extends FreeSpec {
 
   "obeys SuppressWarnings" in {
-    val result = WartTestTraverser(Utf8String) {
-      @SuppressWarnings(Array("com.originate.wartremovers.Utf8String"))
+    val result = WartTestTraverser(ExplicitStringEncoding) {
+      @SuppressWarnings(Array("com.originate.wartremovers.ExplicitStringEncoding"))
       def test = "some string".getBytes
     }
     assertResult(List.empty, "result.errors")(result.errors)
@@ -21,14 +21,14 @@ class Utf8StringSpec extends FreeSpec {
     "on literals" - {
 
       "does not compile" in {
-        val result = WartTestTraverser(Utf8String) {
+        val result = WartTestTraverser(ExplicitStringEncoding) {
           "some string".getBytes
         }
-        assertResult(List(Utf8String.StringGetBytesError), "result.errors")(result.errors)
+        assertResult(List(ExplicitStringEncoding.StringGetBytesError), "result.errors")(result.errors)
       }
 
       "compiles with an explicit flag" in {
-        val result = WartTestTraverser(Utf8String) {
+        val result = WartTestTraverser(ExplicitStringEncoding) {
           "some string".getBytes(UTF_8)
         }
         assertResult(List.empty, "result.errors")(result.errors)
@@ -39,15 +39,15 @@ class Utf8StringSpec extends FreeSpec {
     "on string variables" - {
 
       "does not compile" in {
-        val result = WartTestTraverser(Utf8String) {
+        val result = WartTestTraverser(ExplicitStringEncoding) {
           val x = "some string"
           x.getBytes
         }
-        assertResult(List(Utf8String.StringGetBytesError), "result.errors")(result.errors)
+        assertResult(List(ExplicitStringEncoding.StringGetBytesError), "result.errors")(result.errors)
       }
 
       "compiles with an explicit flag" in {
-        val result = WartTestTraverser(Utf8String) {
+        val result = WartTestTraverser(ExplicitStringEncoding) {
           val x = "some string"
           x.getBytes(UTF_8)
         }
@@ -61,15 +61,15 @@ class Utf8StringSpec extends FreeSpec {
   "String constructor" - {
 
     "does not compile without an encoding flag" in {
-      val result = WartTestTraverser(Utf8String) {
+      val result = WartTestTraverser(ExplicitStringEncoding) {
         val bytes = "ok".toCharArray map (_.toByte)
         new String(bytes)
       }
-      assertResult(List(Utf8String.StringConstructorWithBytesError), "result.errors")(result.errors)
+      assertResult(List(ExplicitStringEncoding.StringConstructorWithBytesError), "result.errors")(result.errors)
     }
 
     "compiles with an explicit encoding flag" in {
-      val result = WartTestTraverser(Utf8String) {
+      val result = WartTestTraverser(ExplicitStringEncoding) {
         val bytes = "ok".toCharArray map (_.toByte)
         new String(bytes, UTF_8)
       }

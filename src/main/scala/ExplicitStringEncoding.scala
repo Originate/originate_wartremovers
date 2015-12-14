@@ -2,7 +2,7 @@ package com.originate.wartremovers
 
 import org.brianmckenna.wartremover.{WartTraverser, WartUniverse}
 
-object Utf8String extends WartTraverser {
+object ExplicitStringEncoding extends WartTraverser {
 
   val StringGetBytesError =
     """Use explicit encoding flag, ex: "string".getBytes(UTF_8)"""
