@@ -24,7 +24,7 @@ object ExplicitStringEncoding extends WartTraverser {
           case q"new scala.this.Predef.String(..$args)" if args.size <= 1 =>
             u.error(tree.pos, StringConstructorWithBytesError)
             super.traverse(tree)
-          case a =>
+          case _ =>
             super.traverse(tree)
         }
       }
