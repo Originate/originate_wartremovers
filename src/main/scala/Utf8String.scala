@@ -4,7 +4,8 @@ import org.brianmckenna.wartremover.{WartTraverser, WartUniverse}
 
 object Utf8String extends WartTraverser {
 
-  val StringGetBytesError = """Use explicit encoding flag, ex: "string".getBytes(UTF_8)"""
+  val StringGetBytesError =
+    """Use explicit encoding flag, ex: "string".getBytes(UTF_8)"""
   val StringConstructorWithBytesError =
     """Use explicit encoding flag when constructing strings, ex: new String(bytes, UTF_8)"""
 
