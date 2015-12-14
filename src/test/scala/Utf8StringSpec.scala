@@ -46,20 +46,19 @@ class Utf8StringSpec extends FreeSpec {
         assertResult(List(Utf8String.StringGetBytesError), "result.errors")(result.errors)
       }
 
+      "compiles with an explicit flag" in {
+        val result = WartTestTraverser(Utf8String) {
+          val x = "some string"
+          x.getBytes(UTF_8)
+        }
+        assertResult(List.empty, "result.errors")(result.errors)
+      }
+
     }
 
   }
 
   "String constructor" - {
-
-    "compiles with an encoding flag" in {
-      val result = WartTestTraverser(Utf8String) {
-        val bytes = "ok".toCharArray map (_.toByte)
-        new String(bytes, UTF_8)
-      }
-      assertResult(List.empty, "result.errors")(result.errors)
-      assertResult(List.empty, "result.warnings")(result.warnings)
-    }
 
     "does not compile without an encoding flag" in {
       val result = WartTestTraverser(Utf8String) {
@@ -67,6 +66,15 @@ class Utf8StringSpec extends FreeSpec {
         new String(bytes)
       }
       assertResult(List(Utf8String.StringConstructorWithBytesError), "result.errors")(result.errors)
+    }
+
+    "compiles with an explicit encoding flag" in {
+      val result = WartTestTraverser(Utf8String) {
+        val bytes = "ok".toCharArray map (_.toByte)
+        new String(bytes, UTF_8)
+      }
+      assertResult(List.empty, "result.errors")(result.errors)
+      assertResult(List.empty, "result.warnings")(result.warnings)
     }
 
   }
