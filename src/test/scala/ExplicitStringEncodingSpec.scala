@@ -68,6 +68,14 @@ class ExplicitStringEncodingSpec extends FreeSpec {
       assertResult(List(ExplicitStringEncoding.StringConstructorWithBytesError), "result.errors")(result.errors)
     }
 
+    "does not compile without an encoding flag if using native java String" in {
+      val result = WartTestTraverser(ExplicitStringEncoding) {
+        val bytes = "ok".toCharArray map (_.toByte)
+        new java.lang.String(bytes)
+      }
+      assertResult(List(ExplicitStringEncoding.StringConstructorWithBytesError), "result.errors")(result.errors)
+    }
+
     "compiles with an explicit encoding flag" in {
       val result = WartTestTraverser(ExplicitStringEncoding) {
         val bytes = "ok".toCharArray map (_.toByte)
